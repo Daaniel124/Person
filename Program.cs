@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Person
 {
@@ -16,11 +17,13 @@ namespace Person
             mg.Company = "TTHK";
             Console.WriteLine("Работник: " + mg.Fam + ", работодатель: " + mg.Company);
             Manager mg2 = new Manager("Petrov", "Apple", 10000);
-            mg2.Show();
+            mg2.ShowInfo();
             Console.WriteLine("******");
 
-            Manager[] mgs = new Manager[5];
-            for (int x = 0; x < 5; x++)
+            string text;
+            StreamWriter use = new StreamWriter(@"..\..\Managers.txt", true); //true - дозаписываются данные
+            Manager[] mgs = new Manager[2];
+            for (int x = 0; x < 2; x++)
             {
                 mgs[x] = new Manager();
                 Console.WriteLine("Ваше имя: ");
@@ -29,12 +32,34 @@ namespace Person
                 mgs[x].Company = Console.ReadLine();
                 Console.WriteLine("Стоимость продажи: ");
                 mgs[x].Sale = int.Parse(Console.ReadLine());
+                text = mgs[x].Fam +" "+ mgs[x].Company +" "+ mgs[x].Sale.ToString();
+                use.WriteLine(text+";");
             }
+            use.Close();
             Console.WriteLine("******");
             foreach (var item in mgs)
             {
-                item.Show();
+                item.ShowInfo();
             }
+            Console.WriteLine("***Файл***");
+            try
+            {
+                using (StreamReader usefrom = new StreamReader(@"..\..\Managers.txt"))
+                {
+                    /*text = "";
+                    while ((text = usefrom.ReadLine()) != null)
+                    {
+                        Console.WriteLine(text);
+                    }*/
+                    Console.WriteLine(usefrom.ReadToEnd());
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+
             Console.WriteLine("******");
 
             int n = 0, i;

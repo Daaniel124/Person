@@ -31,7 +31,7 @@ namespace Person
         {
             get { return sale * 0.05; }
         }
-        public void Show()
+        public void ShowInfo()
         {
             Console.WriteLine("Фамилия: " + base.Fam);
             Console.WriteLine("Фирма: " + company);
